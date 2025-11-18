@@ -4,8 +4,8 @@ import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
+import Navbar from "@/layout/Navbar"
+import Footer from "@/layout/Footer"
 
 const loginSchema = z.object({
   email: z.email({ message: "Invalid email address" }),
