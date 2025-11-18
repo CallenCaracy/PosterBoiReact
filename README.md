@@ -1,73 +1,139 @@
-# React + TypeScript + Vite
+# PosterBoi Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PosterBoi Frontend** is a lightweight and modular UI built with React, Vite, and Tailwind CSS. It serves as the presentation layer for the PosterBoi ecosystem, consuming backend APIs for posts, comments, authentication, and image content. It focuses on a fast developer experience, reusable components, and clean state management.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Architecture Diagram
 
-## React Compiler
+![Architecture Diagram](https://github.com/CallenCaracy/PosterBoi/blob/main/.github/diagrams/PosterBoi.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+  - React + Vite for a fast, modern development workflow
+  - Tailwind CSS utility-first styling
+  - Atomic component structure (UI, features, layout separation)
+  - API integration with PosterBoi backend
+  - React Router v6 for navigation
+  - Environment-based configuration
+  - Image rendering via Cloudinary URLs
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Planned features:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+  - User authentication UI → WIP
+  - Post creation & upload → Not Started
+  - In-app notifications → Not Started
+  - WebSocket chat UI → Not Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Project Structure
+  ```bash
+  └───posterboi-frontend
+      ├───.github/
+      │   └───workflows/          # GitHub Actions for CI/CD (build/test)
+      ├───.gitignore              # Ignore dist, node_modules, logs, and env files
+      ├───README.md               # Project documentation
+      ├───index.html              # Root HTML entry
+      ├───vite.config.ts          # Vite configuration and plugins
+      ├───package.json            # Dependencies and scripts
+      └───src/
+          ├───assets/             # Images, logo, static assets
+          ├───components/         # Reusable UI components
+          ├───hooks/              # Custom React hooks
+          ├───layout/             # Global layouts (Navbar, Sidebar)
+          ├───pages/              # Route-level pages (Home, Login, Register)
+          ├───api/                # API clients for backend endpoints
+          ├───styles/             # Global CSS, Tailwind config imports
+          ├───utils/              # Helper functions (formatting, validation)
+          ├───App.tsx             # Root app component
+          └───main.tsx            # React entry point
+  ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Getting Started
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prerequisites
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+  - [Node.js 18+][https://nodejs.org/en]
+  - [A running PosterBoi backend API][https://github.com/CallenCaracy/PosterBoi]
+  - [A Cloudinary account (for image rendering)][https://cloudinary.com/]
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Setup
+
+  1. Clone the repository:
+
+  ```
+  git clone https://github.com/YourUsername/posterboi-frontend.git
+  cd posterboi-frontend
+  ```
+
+  2. Install dependencies:
+
+  ```
+  npm install
+  ```
+
+  3. Create a .env file:
+
+  ```
+  VITE_API_BASE_URL="http://localhost:5000/api"
+  VITE_CLOUDINARY_CLOUD_NAME="your-cloud-name"
+  ```
+
+  4. Start the development server:
+
+  ```
+  npm run dev
+  ```
+
+  5. The app will be available at:
+
+  ```
+  http://localhost:5173
+  ```
+
+### Available Scripts
+
+  - Run development server
+
+  ```
+  npm run dev
+  ```
+
+  - Prepare production build
+
+  ```
+  npm run build
+  ```
+
+  - Preview a production build locally
+
+  ```
+  npm run preview
+  ```
+
+## API Integration
+
+### API requests are kept inside src/api/:
+  - authService.ts
+  - postService.ts
+  - commentService.ts
+
+### Tailwind Setup
+
+  1. Tailwind is fully configured through:
+  - vite.config.ts
+  - src/styles/index.css
+
+  2. Example utility usage:
+
+  ```bash
+  <button className="px-4 py-2 bg-blue-600 text-white rounded-lg">
+    Create Post
+  </button>
+  ```
+
+  3. Planned Enhancements
+  - Authentication Flow: Login, Register, Forgot Password
+  - Protected Routes: Guards using JWT
+  - Post Editor: Image upload and markdown support
+  - Live Feed: WebSocket-based real-time updates
+  - Responsive Layout: Modern UI for desktop and mobile
