@@ -1,13 +1,18 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom"
 
 export default function Hero() {
   return (
-    <section className="flex flex-col items-center text-center py-32 bg-linear-to-b from-indigo-50 to-white">
+    <section className="grow flex flex-col justify-center items-center bg-linear-to-b from-indigo-50 to-white">
       <h2 className="text-5xl font-extrabold mb-6">Share Your Moments, Your Way</h2>
       <p className="text-lg text-gray-600 mb-8">
         PosterBoi lets you post, connect, and discover content in a fun and safe environment.
       </p>
-      <Button className="px-8 py-3 text-lg">Get Started</Button>
+      <div className="flex gap-4">  
+        <Link to="/preview">
+          <Button className="w-auto">Browse without an account.</Button>
+        </Link>
+      </div>
     </section>
   );
 }

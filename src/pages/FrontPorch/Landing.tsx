@@ -6,10 +6,12 @@ import Footer from "@/layout/Footer";
 export default function Landing() {
   return (
     <>
-      <Navbar />
-      <Hero />
-      <Features />
-      <Footer />
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <Hero />
+        <Features />
+        <Footer />  
+      </div>
     </>
   );
 }

@@ -1,63 +1,87 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Navbar from "@/layout/Navbar"
 import Footer from "@/layout/Footer"
 
-const loginSchema = z.object({
-  email: z.email({ message: "Invalid email address" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
-})
-
-type LoginFormData = z.infer<typeof loginSchema>
+import { loginSchema, type LoginSchema } from "@/schemas/LoginSchema";
+import { useLogin } from "@/hooks/UseLogin";
 
 export default function Login() {
+  const { handleLogin, loading } = useLogin();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({
+  } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   })
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log("Login data:", data)
-    // TODO: Call your API: /api/auth/login
+  const onSubmit = async (values: LoginSchema) => {
+    const { success, error } = await handleLogin(values);
+
+    if(!success) {
+      console.error(error);
+      return;
+    }
+
+    console.log("Logged in successfully");
   }
 
   return (
-    <>
-    <Navbar />
-        <main className="flex justify-center bg-indigo-50 min-h-[calc(92vh-96px)] py-12">
-            <div className="bg-white p-12 rounded-lg shadow-lg w-full h-full max-w-md">
-            <h2 className="text-2xl font-bold mb-6 text-center">Login to PosterBoi</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-                <div>
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" {...register("email")} />
+    <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
+      <Navbar />
+      <div className="flex flex-1 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" className="mx-auto h-10 w-auto" />
+          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-black">Sign in to your account</h2>
+        </div>
+
+        <div onSubmit={handleSubmit(onSubmit)} className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form action="#" method="POST" className="space-y-6">
+            <div>
+              <Label htmlFor="email" className="block text-sm/6 font-medium text-black-100">Email address</Label>
+              <div className="mt-2">
+                <Input id="email" type="email" required autoComplete="email" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("email")}/>
                 {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                  <p className="text-red-500 text-sm">{errors.email.message}</p>
                 )}
-                </div>
-
-                <div>
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" {...register("password")} />
-                {errors.password && (
-                    <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
-                )}
-                </div>
-
-                <Button type="submit" className="mt-4">
-                Login
-                </Button>
-            </form>
+              </div>
             </div>
-        </main>
-    <Footer />
-    </>
+
+            <div>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" className="block text-sm/6 font-medium text-black-100">Password</Label>
+                <div className="text-sm">
+                  <a href="#" className="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+                </div>
+              </div>
+              <div className="mt-2">
+                <Input id="password" type="password" required autoComplete="current-password" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("password")}/>
+                {errors.password && (
+                  <p className="text-red-500 text-sm">{errors.password.message}</p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <Button type="submit" className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
+              </Button>
+            </div>
+          </form>
+
+          <p className="mt-10 text-center text-sm/6 text-gray-400">
+            Don't have an account?
+            <a href="/signup" className="font-semibold text-indigo-400 hover:text-indigo-300"> Register here!</a>
+          </p>
+        </div>
+      </div>
+      < Footer />
+    </div>
   )
 }

@@ -52,9 +52,9 @@
 
 ### Prerequisites
 
-  - [Node.js 18+][https://nodejs.org/en]
-  - [A running PosterBoi backend API][https://github.com/CallenCaracy/PosterBoi]
-  - [A Cloudinary account (for image rendering)][https://cloudinary.com/]
+  - [Node.js 18+](https://nodejs.org/en)
+  - [A running PosterBoi backend API](https://github.com/CallenCaracy/PosterBoi)
+  - [A Cloudinary account (for image rendering)](https://cloudinary.com/)
 
 ### Setup
 
