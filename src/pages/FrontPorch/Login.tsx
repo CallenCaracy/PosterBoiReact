@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Navbar from "@/layout/Navbar"
 import Footer from "@/layout/Footer"
+import Logo from "@/assets/PosterBoi_Logo.png";
 
 import { loginSchema, type LoginSchema } from "@/schemas/LoginSchema";
 import { useLogin } from "@/hooks/UseLogin";
@@ -37,7 +38,7 @@ export default function Login() {
       <Navbar />
       <div className="flex flex-1 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" className="mx-auto h-10 w-auto" />
+          <img src={Logo} alt="Your Company" className="mx-auto h-20 w-auto" />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-black">Sign in to your account</h2>
         </div>
 
@@ -57,7 +58,7 @@ export default function Login() {
               <div className="flex items-center justify-between">
                 <Label htmlFor="password" className="block text-sm/6 font-medium text-black-100">Password</Label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+                  <a href="#" className="font-semibold hover:text-indigo-300">Forgot password?</a>
                 </div>
               </div>
               <div className="mt-2">
@@ -69,7 +70,7 @@ export default function Login() {
             </div>
 
             <div>
-              <Button type="submit" className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" disabled={loading}>
+              <Button type="submit" className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" disabled={loading}>
                 {loading ? "Logging in..." : "Login"}
               </Button>
             </div>
@@ -77,7 +78,7 @@ export default function Login() {
 
           <p className="mt-10 text-center text-sm/6 text-gray-400">
             Don't have an account?
-            <a href="/signup" className="font-semibold text-indigo-400 hover:text-indigo-300"> Register here!</a>
+            <a href="/signup" className="font-semibold text-black hover:text-indigo-300"> Register here!</a>
           </p>
         </div>
       </div>

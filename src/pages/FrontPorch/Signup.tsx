@@ -134,7 +134,7 @@ export default function Signup() {
 
                 <Button
                     type="submit"
-                    className="w-full py-3 font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition"
+                    className="w-full py-3 font-semibold text-white hover:bg-blue-700 rounded-lg shadow-md transition"
                     disabled={loading}
                 >
                     {loading ? "Registering..." : "Register Account"}
@@ -143,7 +143,7 @@ export default function Signup() {
                 <div className="pt-4 border-t border-gray-300 dark:border-gray-600 text-center space-y-2">
                     <a
                     href="#"
-                    className="text-blue-600 hover:text-blue-800 text-sm dark:text-blue-400"
+                    className=" hover:text-blue-800 text-sm dark:text-blue-400"
                     >
                     Forgot Password?
                     </a>
@@ -151,7 +151,7 @@ export default function Signup() {
                     <div>
                     <a
                         href="/login"
-                        className="text-blue-600 hover:text-blue-800 text-sm dark:text-blue-400"
+                        className=" hover:text-blue-800 text-sm dark:text-blue-400"
                     >
                         Already have an account? Login!
                     </a>

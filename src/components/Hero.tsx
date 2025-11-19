@@ -10,7 +10,7 @@ export default function Hero() {
       </p>
       <div className="flex gap-4">  
         <Link to="/preview">
-          <Button className="w-auto">Browse without an account.</Button>
+          <Button className="w-auto">Browse without an account</Button>
         </Link>
       </div>
     </section>
