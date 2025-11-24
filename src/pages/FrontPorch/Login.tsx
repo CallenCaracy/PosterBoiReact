@@ -4,15 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import Navbar from "@/layout/Navbar"
-import Footer from "@/layout/Footer"
-import Logo from "@/assets/PosterBoi_Logo.png";
+import Navbar from "@/layouts/Navbar"
+import Footer from "@/layouts/Footer"
+import Logo from "@/assets/PosterBoi_Logo.png"
 
 import { loginSchema, type LoginSchema } from "@/schemas/LoginSchema";
 import { useLogin } from "@/hooks/UseLogin";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { handleLogin, loading } = useLogin();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -26,10 +28,11 @@ export default function Login() {
     const { success, error } = await handleLogin(values);
 
     if(!success) {
-      console.error(error);
+      alert(error);
       return;
     }
 
+    navigate("/dashboard", { replace: true})
     console.log("Logged in successfully");
   }
 
@@ -47,7 +50,7 @@ export default function Login() {
             <div>
               <Label htmlFor="email" className="block text-sm/6 font-medium text-black-100">Email address</Label>
               <div className="mt-2">
-                <Input id="email" type="email" required autoComplete="email" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("email")}/>
+                <Input id="email" type="email" placeholder="Email" required autoComplete="email" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("email")}/>
                 {errors.email && (
                   <p className="text-red-500 text-sm">{errors.email.message}</p>
                 )}
@@ -62,7 +65,7 @@ export default function Login() {
                 </div>
               </div>
               <div className="mt-2">
-                <Input id="password" type="password" required autoComplete="current-password" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("password")}/>
+                <Input id="password" type="password" placeholder="Password" required autoComplete="current-password" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("password")}/>
                 {errors.password && (
                   <p className="text-red-500 text-sm">{errors.password.message}</p>
                 )}

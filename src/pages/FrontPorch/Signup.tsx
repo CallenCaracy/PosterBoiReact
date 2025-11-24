@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Navbar from "@/layout/Navbar";
-import Footer from "@/layout/Footer";
+import Navbar from "@/layouts/Navbar";
+import Footer from "@/layouts/Footer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -40,9 +40,9 @@ export default function Signup() {
         <main className="flex justify-center items-center flex-1 py-12 px-4">
             <div className="w-full max-w-5xl rounded-xl overflow-hidden shadow-xl bg-white dark:bg-gray-800 flex flex-col lg:flex-row">
 
-            {/* Left Image */}
+             {/* Left Image */}
             <div
-                className="hidden lg:block w-5/12 bg-cover">
+                className="hidden lg:block w-10/12 bg-cover">
                 <img src={Image} alt="background image sign in" className="h-full w-full object-cover object-center dark:not-odd:not-last:"></img>
             </div>
 
