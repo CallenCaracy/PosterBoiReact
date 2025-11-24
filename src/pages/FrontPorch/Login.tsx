@@ -4,14 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import Navbar from "@/layout/Navbar"
-import Footer from "@/layout/Footer"
+import Navbar from "@/layouts/Navbar"
+import Footer from "@/layouts/Footer"
+import Logo from "@/assets/PosterBoi_Logo.png"
 
 import { loginSchema, type LoginSchema } from "@/schemas/LoginSchema";
 import { useLogin } from "@/hooks/UseLogin";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { handleLogin, loading } = useLogin();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -25,10 +28,11 @@ export default function Login() {
     const { success, error } = await handleLogin(values);
 
     if(!success) {
-      console.error(error);
+      alert(error);
       return;
     }
 
+    navigate("/dashboard", { replace: true})
     console.log("Logged in successfully");
   }
 
@@ -37,7 +41,7 @@ export default function Login() {
       <Navbar />
       <div className="flex flex-1 min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" className="mx-auto h-10 w-auto" />
+          <img src={Logo} alt="Your Company" className="mx-auto h-20 w-auto" />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-black">Sign in to your account</h2>
         </div>
 
@@ -46,7 +50,7 @@ export default function Login() {
             <div>
               <Label htmlFor="email" className="block text-sm/6 font-medium text-black-100">Email address</Label>
               <div className="mt-2">
-                <Input id="email" type="email" required autoComplete="email" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("email")}/>
+                <Input id="email" type="email" placeholder="Email" required autoComplete="email" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("email")}/>
                 {errors.email && (
                   <p className="text-red-500 text-sm">{errors.email.message}</p>
                 )}
@@ -57,11 +61,11 @@ export default function Login() {
               <div className="flex items-center justify-between">
                 <Label htmlFor="password" className="block text-sm/6 font-medium text-black-100">Password</Label>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-400 hover:text-indigo-300">Forgot password?</a>
+                  <a href="#" className="font-semibold hover:text-indigo-300">Forgot password?</a>
                 </div>
               </div>
               <div className="mt-2">
-                <Input id="password" type="password" required autoComplete="current-password" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("password")}/>
+                <Input id="password" type="password" placeholder="Password" required autoComplete="current-password" className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-black outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" {...register("password")}/>
                 {errors.password && (
                   <p className="text-red-500 text-sm">{errors.password.message}</p>
                 )}
@@ -69,7 +73,7 @@ export default function Login() {
             </div>
 
             <div>
-              <Button type="submit" className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" disabled={loading}>
+              <Button type="submit" className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" disabled={loading}>
                 {loading ? "Logging in..." : "Login"}
               </Button>
             </div>
@@ -77,7 +81,7 @@ export default function Login() {
 
           <p className="mt-10 text-center text-sm/6 text-gray-400">
             Don't have an account?
-            <a href="/signup" className="font-semibold text-indigo-400 hover:text-indigo-300"> Register here!</a>
+            <a href="/signup" className="font-semibold text-black hover:text-indigo-300"> Register here!</a>
           </p>
         </div>
       </div>

@@ -1,7 +1,7 @@
-import Navbar from "@/layout/Navbar";
+import Navbar from "@/layouts/Navbar";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
-import Footer from "@/layout/Footer";
+import Footer from "@/layouts/Footer";
 
 export default function Landing() {
   return (

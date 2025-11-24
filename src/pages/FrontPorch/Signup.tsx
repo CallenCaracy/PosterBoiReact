@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Navbar from "@/layout/Navbar";
-import Footer from "@/layout/Footer";
+import Navbar from "@/layouts/Navbar";
+import Footer from "@/layouts/Footer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -40,9 +40,9 @@ export default function Signup() {
         <main className="flex justify-center items-center flex-1 py-12 px-4">
             <div className="w-full max-w-5xl rounded-xl overflow-hidden shadow-xl bg-white dark:bg-gray-800 flex flex-col lg:flex-row">
 
-            {/* Left Image */}
+             {/* Left Image */}
             <div
-                className="hidden lg:block w-5/12 bg-cover">
+                className="hidden lg:block w-10/12 bg-cover">
                 <img src={Image} alt="background image sign in" className="h-full w-full object-cover object-center dark:not-odd:not-last:"></img>
             </div>
 
@@ -134,7 +134,7 @@ export default function Signup() {
 
                 <Button
                     type="submit"
-                    className="w-full py-3 font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition"
+                    className="w-full py-3 font-semibold text-white hover:bg-blue-700 rounded-lg shadow-md transition"
                     disabled={loading}
                 >
                     {loading ? "Registering..." : "Register Account"}
@@ -143,7 +143,7 @@ export default function Signup() {
                 <div className="pt-4 border-t border-gray-300 dark:border-gray-600 text-center space-y-2">
                     <a
                     href="#"
-                    className="text-blue-600 hover:text-blue-800 text-sm dark:text-blue-400"
+                    className=" hover:text-blue-800 text-sm dark:text-blue-400"
                     >
                     Forgot Password?
                     </a>
@@ -151,7 +151,7 @@ export default function Signup() {
                     <div>
                     <a
                         href="/login"
-                        className="text-blue-600 hover:text-blue-800 text-sm dark:text-blue-400"
+                        className=" hover:text-blue-800 text-sm dark:text-blue-400"
                     >
                         Already have an account? Login!
                     </a>
