@@ -1,14 +1,19 @@
 import { useState } from "react";
 import type { SignupSchema } from "@/schemas/SignupSchema";
+import { getApiUrl } from "@/utils/env";
 
 export function useSignup() {
   const [loading, setLoading] = useState(false);
+
+  const { BASE_URL, API_VERSION } = getApiUrl();
+
+  const lsignupUrlEndpoint = `${BASE_URL}/api/v${API_VERSION}/Auth/register`;
 
   const handleSignup = async (values: SignupSchema) => {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch(lsignupUrlEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),

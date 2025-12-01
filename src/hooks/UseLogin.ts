@@ -1,13 +1,13 @@
 import { useState } from "react";
 import type { LoginSchema } from "@/schemas/LoginSchema";
 import { useAuth } from "@/contexts/AuthContext";
+import { getApiUrl } from "@/utils/env";
 
 export function useLogin() {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const API_VERSION = import.meta.env.VITE_API_VERSION;
+  const { BASE_URL, API_VERSION } = getApiUrl();
   const loginUrlEndpoint = `${BASE_URL}/api/v${API_VERSION}/Auth/login`;
 
   const handleLogin = async (values: LoginSchema) => {

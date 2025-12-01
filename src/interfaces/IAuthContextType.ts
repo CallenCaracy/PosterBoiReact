@@ -5,4 +5,5 @@ export default interface IAuthContextType {
   token: string | null;
   login: (token: string) => void;
   logout: () => void;
+  refresh: () => Promise<string | null>;
 }

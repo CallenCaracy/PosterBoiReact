@@ -5,6 +5,7 @@ export default function Navbar() {
   return (
     <nav className="flex justify-between items-center py-4 px-12 bg-neutral-900 shadow-md">
       <h1 className="text-2xl font-bold text-white">PosterBoi</h1>
+      {/* Update this when the user logs in the buttons are updated */}
       <div className="flex gap-4">
         <Link to="/login">
             <Button>Login</Button>

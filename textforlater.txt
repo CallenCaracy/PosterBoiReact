@@ -1,0 +1,76 @@
+Perfect — let’s go step by step to **completely remove the `obj/` folder from your Git history** while keeping your repo private. This is the safest way to ensure no API keys or generated files are ever accessible, even in past commits.
+
+---
+
+## **Step 1 — Install `git-filter-repo`**
+
+`git-filter-repo` is the modern, fast, and safe tool for rewriting Git history.
+
+**macOS:**
+
+```bash
+brew install git-filter-repo
+```
+
+**Linux:**
+
+```bash
+pip install git-filter-repo
+```
+
+**Windows:**
+Download from: [git-filter-repo releases](https://github.com/newren/git-filter-repo/releases)
+
+---
+
+## **Step 2 — Remove the entire `obj/` folder from history**
+
+Run this from the root of your repository:
+
+```bash
+git filter-repo --path-glob "*/obj/*" --invert-paths
+```
+
+**Explanation:**
+
+* `--path-glob "*/obj/*"` matches all `obj/` folders in any subfolder.
+* `--invert-paths` deletes the matched paths from every commit in history.
+
+> This completely removes all `obj/` files from all past commits.
+
+---
+
+## **Step 3 — Force-push the cleaned history to GitHub**
+
+Since we rewrote the history, we need to overwrite the remote:
+
+```bash
+git push origin --force --all
+git push origin --force --tags
+```
+
+> Your private repo will now have a **clean history** with no `obj/` files.
+
+---
+
+## **Step 4 — Prevent future commits of `obj/`**
+
+Add `obj/` to `.gitignore` so it’s never committed again:
+
+```bash
+echo "obj/" >> .gitignore
+git rm -r --cached obj
+git add .gitignore
+git commit -m "Stop tracking obj folder"
+git push
+```
+
+---
+
+✅ **Done!** Now your repo is private, and all generated files (including any API keys in `obj/`) are removed from history.
+
+---
+
+If you want, I can also **write the exact full script** to clean your repo in one go, including all `obj/` folders and `bin/` folders, which are usually safe to ignore in .NET projects.
+
+Do you want me to do that?

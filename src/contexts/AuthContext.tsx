@@ -3,43 +3,51 @@ import { jwtDecode } from "jwt-decode";
 import type IAuthContextType from "@/interfaces/IAuthContextType";
 import type IDecodedToken from "@/interfaces/IDecodedToken";
 import type IAuthProviderProps from "@/interfaces/IAuthProviderProps";
+import { getApiUrl } from "@/utils/env";
 
 const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [user, setUser] = useState<IDecodedToken | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const { BASE_URL, API_VERSION } = getApiUrl();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("accessToken");
-    if (storedToken) {
-      try {
-        const decoded = jwtDecode<IDecodedToken>(storedToken);
-        setToken(storedToken);
-        setUser(decoded);
-      } catch (err) {
-        console.error("Invalid token", err);
-        setToken(null);
-        setUser(null);
-      }
-    }
+    refresh();
   }, []);
 
   const login = (accessToken: string) => {
-    localStorage.setItem("accessToken", accessToken);
     setToken(accessToken);
-    const decoded = jwtDecode<IDecodedToken>(accessToken);
-    setUser(decoded);
+    setUser(jwtDecode<IDecodedToken>(accessToken));
   };
 
   const logout = () => {
-    localStorage.removeItem("accessToken");
     setToken(null);
     setUser(null);
   };
+  
+  const refresh = async () => {
+    try{
+      const res = await fetch(`${BASE_URL}/api/v${API_VERSION}/Session/refresh`, {
+        method: "POST",
+        credentials: "include"
+      });
+
+      if(!res.ok) throw new Error("Refresh failed")
+
+      const data = await res.json();
+      setToken(data.accessToken)
+      setUser(jwtDecode<IDecodedToken>(data.accessToken));
+      return data.accessToken;
+    }
+    catch{
+      logout();
+      return null;
+    }
+  }
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout, refresh }}>
       {children}
     </AuthContext.Provider>
   );

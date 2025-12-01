@@ -40,7 +40,6 @@ export default function Signup() {
         <main className="flex justify-center items-center flex-1 py-12 px-4">
             <div className="w-full max-w-5xl rounded-xl overflow-hidden shadow-xl bg-white dark:bg-gray-800 flex flex-col lg:flex-row">
 
-             {/* Left Image */}
             <div
                 className="hidden lg:block w-10/12 bg-cover">
                 <img src={Image} alt="background image sign in" className="h-full w-full object-cover object-center dark:not-odd:not-last:"></img>
