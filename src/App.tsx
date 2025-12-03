@@ -3,6 +3,7 @@ import Landing from './pages/FrontPorch/Landing'
 import Login from './pages/FrontPorch/Login'
 import Signup from './pages/FrontPorch/Signup'
 import Dashboard from './pages/LivingRoom/Dashboard'
+import Preview from '@/pages/FrontPorch/Preview'
 import NotFound from './pages/General/NotFound'
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="preview" element={<Preview />} />
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="*" element={<NotFound />} />
     </Routes>
