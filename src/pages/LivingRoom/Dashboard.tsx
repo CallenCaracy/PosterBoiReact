@@ -1,23 +1,37 @@
-import Navbar from "@/layouts/Navbar";
-import Footer from "@/layouts/Footer";
+import Navbar from "@/components/dashboard/Navbar";
 import ProfileCard from "@/components/dashboard/ProfileCard";
 import CreatePostCard from "@/components/dashboard/CreatePostCard";
-import PostsCard from "@/components/dashboard/PostsCard";
-import FriendNChat from "@/components/dashboard/FriendNChatCard";
+import PostsFeed from "@/components/dashboard/PostFeed";
+import FriendsCard from "@/components/dashboard/FriendsCard";
 
 export default function Dashboard() {
-    return (
-        <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
-            <Navbar />
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      <main className="mx-auto max-w-7xl px-4 py-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+          {/* Left Sidebar - Profile */}
+          <aside className="hidden lg:block lg:col-span-3">
+            <div className="sticky top-24">
+              <ProfileCard />
+            </div>
+          </aside>
 
-            <main className="flex-1 py-10 px-6 md:px-20 grid grid-cols-5 gap-4">
-                <ProfileCard/>
-                <CreatePostCard/>
-                <PostsCard/>
-                <FriendNChat/>
-            </main>
+          {/* Main Feed */}
+          <section className="lg:col-span-6 space-y-4">
+            <CreatePostCard />
+            <PostsFeed />
+          </section>
 
-            <Footer />
+          {/* Right Sidebar - Friends */}
+          <aside className="hidden lg:block lg:col-span-3">
+            <div className="sticky top-24">
+              <FriendsCard />
+            </div>
+          </aside>
         </div>
-    );
+      </main>
+    </div>
+  );
 }
