@@ -1,49 +1,33 @@
-import { Heart, MessageCircle, Share2, MoreHorizontal } from "lucide-react";
+import { Heart, MessageCircle, MoreHorizontal } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { formatDistanceToNow } from 'date-fns'
+import type { Post } from "@/models/Post";
 
 interface PostCardProps {
-  author: {
-    name: string;
-    avatar: string;
-    username: string;
-  };
-  content: string;
-  image?: string;
-  likes: number;
-  comments: number;
-  shares: number;
-  timeAgo: string;
+  post: Post;
 }
 
-export default function PostCard({
-  author,
-  content,
-  image,
-  likes,
-  comments,
-  shares,
-  timeAgo,
-}: PostCardProps) {
+export default function PostCard({ post }: PostCardProps) {
   const [liked] = useState(false);
-  const [likeCount] = useState(likes);
+  const [likeCount] = useState(post.reactionCount);
 
   return (
     <Card className="p-4 shadow-soft hover:shadow-medium transition-shadow duration-300 animate-slide-up">
       {/* Header */}
-      <div className="flex items-start justify-between mb-3">
+      <div className="flex items-start justify-between">
         <div className="flex gap-3">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={author.avatar} alt={author.name} />
+            <AvatarImage src={post.user.pfpUrl} alt={post.user.name} />
             <AvatarFallback className="bg-primary text-primary-foreground">
-              {author.name.slice(0, 2).toUpperCase()}
+              {post.user.name.slice(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <div>
-            <p className="font-semibold text-foreground leading-tight">{author.name}</p>
-            <p className="text-xs text-muted-foreground">@{author.username} · {timeAgo}</p>
+            <p className="font-semibold text-foreground leading-tight">{post.user.name}</p>
+            <p className="text-xs text-muted-foreground">@{post.user.name} · {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}</p>
           </div>
         </div>
         <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full text-muted-foreground">
@@ -52,13 +36,16 @@ export default function PostCard({
       </div>
 
       {/* Content */}
-      <p className="text-foreground mb-3 leading-relaxed">{content}</p>
+      <div className="flex gap-2">
+        <p className="text-lg font-bold text-foreground leading-snug">{post.title}:</p>
+        <p className="text-foreground mb-1 leading-relaxed">{post.description}</p>
+      </div>
 
       {/* Image */}
-      {image && (
-        <div className="mb-3 -mx-4">
+      {post.imgUrl && (
+        <div className="-mx-4">
           <img
-            src={image}
+            src={post.imgUrl}
             alt="Post"
             className="w-full object-cover max-h-96"
           />
@@ -78,11 +65,7 @@ export default function PostCard({
           </Button>
           <Button variant="ghost" size="sm" className="gap-1.5 rounded-full text-muted-foreground">
             <MessageCircle className="h-4 w-4" />
-            <span className="text-xs">{comments}</span>
-          </Button>
-          <Button variant="ghost" size="sm" className="gap-1.5 rounded-full text-muted-foreground">
-            <Share2 className="h-4 w-4" />
-            <span className="text-xs">{shares}</span>
+            <span className="text-xs">{post.commentCount}</span>
           </Button>
         </div>
       </div>

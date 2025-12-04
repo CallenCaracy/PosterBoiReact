@@ -4,8 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import Navbar from "@/components/FrontPorch/Navbar"
-import Footer from "@/components/FrontPorch/Footer"
+import Navbar from "@/components/frontPorch/Navbar"
+import Footer from "@/components/frontPorch/Footer"
 import Logo from "@/assets/PosterBoi_Logo.png"
 
 import { loginSchema, type LoginSchema } from "@/schemas/LoginSchema";
