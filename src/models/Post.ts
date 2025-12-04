@@ -3,7 +3,7 @@ import type { User } from "@/models/User"
 export type Post = {
     id: number;
     title: string;
-    imgUrl: string;
+    imgUrl: string | undefined;
     description: string;
     createdAt: string;
     updatedAt: string;

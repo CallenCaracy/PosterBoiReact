@@ -11,8 +11,18 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post }: PostCardProps) {
+  const [/*isOpen*/, setIsOpen] = useState(false);
   const [liked] = useState(false);
   const [likeCount] = useState(post.reactionCount);
+
+  const handleOpen = () => {
+    setIsOpen(true);
+    // fetchComments();
+  }
+
+  // const handleClose = () => {
+  //   setIsOpen(false)
+  // }
 
   return (
     <Card className="p-4 shadow-soft hover:shadow-medium transition-shadow duration-300 animate-slide-up">
@@ -63,7 +73,7 @@ export default function PostCard({ post }: PostCardProps) {
             <Heart className={`h-4 w-4 ${liked ? 'fill-current' : ''}`} />
             <span className="text-xs">{likeCount}</span>
           </Button>
-          <Button variant="ghost" size="sm" className="gap-1.5 rounded-full text-muted-foreground">
+          <Button variant="ghost" size="sm" className="gap-1.5 rounded-full text-muted-foreground" onClick={handleOpen}>
             <MessageCircle className="h-4 w-4" />
             <span className="text-xs">{post.commentCount}</span>
           </Button>
