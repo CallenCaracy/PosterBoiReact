@@ -1,10 +1,5 @@
 import PostCard from "@/components/frontPorch/PostCard";
-import type { Post } from "@/models/Post";
-
-interface PostsFeedProps {
-  posts: Post[];
-}
-
+import type { PostsFeedProps } from "@/interfaces/IProps";
 
 export default function PostsFeed({ posts }: PostsFeedProps) {
   return (

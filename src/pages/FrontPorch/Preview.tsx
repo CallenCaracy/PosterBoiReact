@@ -2,13 +2,14 @@ import PostsFeed from "@/components/frontPorch/PostFeed";
 import Navbar from "@/components/frontPorch/Navbar";
 import { useRef, useEffect } from "react";
 import { useInfinitePosts } from "@/hooks/UseFetchPosts";
+import { Label } from "@/components/ui/label";
 
 export default function Preview() {
-    const { posts, loadMore, loading, hasMore } = useInfinitePosts();
+    const { posts, loadMore, loading, hasMore, error } = useInfinitePosts();
     const loadMoreRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-    if (!loadMoreRef.current) return;
+    if (!loadMoreRef.current || error) return;
 
     const observer = new IntersectionObserver(
         ([entry]) => {
@@ -41,7 +42,13 @@ export default function Preview() {
                 Load More
             </button>
             )}
-            {loading && <p className="text-center mt-4">Loading...</p>}
+            {loading && <Label className="text-center mt-4 justify-center text-xl">Loading...</Label>}
+
+            {error && (
+            <div className="mt-4 text-center">
+                <Label className="text-red-500 justify-center text-xl">{error}</Label>
+            </div>
+            )}
 
             <div ref={loadMoreRef}></div>
         </main>

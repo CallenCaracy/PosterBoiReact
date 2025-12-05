@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import type IAuthContextType from "@/interfaces/IAuthContextType";
 import type IDecodedToken from "@/interfaces/IDecodedToken";
-import type IAuthProviderProps from "@/interfaces/IAuthProviderProps";
+import type IAuthProviderProps from "@/interfaces/IProps";
 import { getApiUrl } from "@/utils/env";
 
 const AuthContext = createContext<IAuthContextType | undefined>(undefined);

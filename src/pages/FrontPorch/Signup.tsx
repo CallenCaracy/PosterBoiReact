@@ -38,7 +38,7 @@ export default function Signup() {
         <Navbar />
 
         <main className="flex justify-center items-center flex-1 py-12 px-4">
-            <div className="w-full max-w-5xl rounded-xl overflow-hidden shadow-xl bg-white dark:bg-gray-800 flex flex-col lg:flex-row">
+            <div className="w-full max-w-6xl rounded-xl overflow-hidden shadow-xl bg-white dark:bg-gray-800 flex flex-col lg:flex-row">
 
             <div
                 className="hidden lg:block w-10/12 bg-cover">
@@ -53,23 +53,44 @@ export default function Signup() {
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
 
-                <div>
-                    <Label
-                    htmlFor="username"
-                    className="block text-sm font-semibold text-gray-700 dark:text-gray-200"
-                    >
-                    Username
-                    </Label>
-                    <Input
-                    id="username"
-                    type="text"
-                    placeholder="Username"
-                    className="mt-2 w-full px-4 py-2 border rounded-lg dark:text-white bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring focus:ring-blue-300 focus:outline-none"
-                    {...register("username")}
-                    />
-                    {errors.username && (
-                        <p className="text-red-500 text-sm">{errors.username.message}</p>
-                    )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <Label
+                        htmlFor="name"
+                        className="block text-sm font-semibold text-gray-700 dark:text-gray-200"
+                        >
+                        Name
+                        </Label>
+                        <Input
+                        id="name"
+                        type="text"
+                        placeholder="Name"
+                        className="mt-2 w-full px-4 py-2 border rounded-lg dark:text-white bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring focus:ring-blue-300 focus:outline-none"
+                        {...register("name")}
+                        />
+                        {errors.name && (
+                            <p className="absolute text-xs text-red-500">{errors.name.message}</p>
+                        )}
+                    </div>
+
+                    <div>
+                        <Label
+                        htmlFor="username"
+                        className="block text-sm font-semibold text-gray-700 dark:text-gray-200"
+                        >
+                        Username
+                        </Label>
+                        <Input
+                        id="username"
+                        type="text"
+                        placeholder="Username"
+                        className="mt-2 w-full px-4 py-2 border rounded-lg dark:text-white bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring focus:ring-blue-300 focus:outline-none"
+                        {...register("username")}
+                        />
+                        {errors.username && (
+                            <p className="absolute text-xs text-red-500">{errors.username.message}</p>
+                        )}
+                    </div>
                 </div>
 
                 <div>
@@ -87,7 +108,7 @@ export default function Signup() {
                     {...register("email")}
                     />
                     {errors.email && (
-                        <p className="text-red-500 text-sm">{errors.email.message}</p>
+                        <p className="absolute text-xs text-red-500">{errors.email.message}</p>
                     )}
                 </div>
 
@@ -107,7 +128,7 @@ export default function Signup() {
                         {...register("password")}
                     />
                     {errors.password && (
-                        <p className="text-red-500 text-sm">{errors.password.message}</p>
+                        <p className="absolute text-xs text-red-500">{errors.password.message}</p>
                     )}
                     </div>
 
@@ -126,7 +147,7 @@ export default function Signup() {
                         {...register("confirmPassword")}
                     />
                     {errors.confirmPassword && (
-                        <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
+                        <p className="absolute text-xs text-red-500">{errors.confirmPassword.message}</p>
                     )}
                     </div>
                 </div>
