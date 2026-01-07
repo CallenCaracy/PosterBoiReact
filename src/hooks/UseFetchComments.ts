@@ -3,13 +3,14 @@ import type { Comment } from "@/models/Comment";
 import { getApiUrl } from "@/utils/env";
 import type { UseInfiniteCommentsOptions } from "@/interfaces/IOptions";
 import { MAX_RETRIES } from "@/utils/constants";
+import type { ApiResponse } from "@/interfaces/ApiResponse";
 
 export function useInfiniteComments({ postId, limit = 10 }: UseInfiniteCommentsOptions = {}) {
     if (!postId) throw new Error("postId is required");
     const { BASE_URL, API_VERSION } = getApiUrl();
     const endpoint = `${BASE_URL}/api/v${API_VERSION}/Comment/getCommentsByPostId/${postId}`;
 
-    const [comments, setPosts] = useState<Comment[]>([]);
+    const [comments, setComments] = useState<Comment[]>([]);
     const [after, setAfter] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
@@ -38,7 +39,8 @@ export function useInfiniteComments({ postId, limit = 10 }: UseInfiniteCommentsO
 
             if (!res.ok) throw new Error("Failed to fetch comments");
 
-            const data: Comment[] = await res.json();
+            const json: ApiResponse<Comment[]> = await res.json();
+            const data = json.data;
 
             if (data.length < limit) {
                 setHasMore(false);
@@ -46,7 +48,7 @@ export function useInfiniteComments({ postId, limit = 10 }: UseInfiniteCommentsO
 
             const newCursor = data.at(-1)?.createdAt ?? null;
 
-            setPosts(prev => [...prev, ...data]);
+            setComments(prev => [...prev, ...data]);
             setAfter(newCursor);
             setRetryCount(0);
         } catch (err) {

@@ -4,6 +4,7 @@ import { getApiUrl } from "@/utils/env";
 import { MAX_RETRIES } from "@/utils/constants";
 import type { UseInfinitePostsOptions } from "@/interfaces/IOptions";
 import { toast } from "sonner";
+import type { ApiResponse } from "@/interfaces/ApiResponse";
 
 export function useInfinitePosts({ limit = 10 }: UseInfinitePostsOptions = {}) {
   const { BASE_URL, API_VERSION } = getApiUrl();
@@ -37,7 +38,8 @@ export function useInfinitePosts({ limit = 10 }: UseInfinitePostsOptions = {}) {
 
         if (!res.ok) throw new Error("Failed to fetch posts");
 
-        const data: Post[] = await res.json();
+        const json: ApiResponse<Post[]> = await res.json();
+        const data = json.data;
 
         if (data.length < limit) {
           setHasMore(false);

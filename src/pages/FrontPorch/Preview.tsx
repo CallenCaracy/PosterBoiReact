@@ -25,7 +25,6 @@ export default function Preview() {
     return () => observer.disconnect();
     }, [hasMore, loading]);
 
-    console.log(posts, hasMore)
     return (
         <div className="min-h-screen bg-background">
         <Navbar />

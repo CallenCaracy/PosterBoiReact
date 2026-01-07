@@ -4,11 +4,11 @@ export type Comment = {
     id: number
     postId: number
     commentMessage: string
-    imgUrl: string | undefined
+    imgUrl?: string
     createdAt: string
     updatedAt: string
     userId: string
     user: User
     parentCommentId: number,
-    childComments: Comment
+    childComments: Comment[]
 }

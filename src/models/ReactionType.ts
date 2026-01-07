@@ -1,8 +1,8 @@
 export enum ReactionType {
-    Green = 0,  //Like
-    Pink = 1,   //Love
-    Yellow = 2, //Haha
-    Orange = 3, //Wow
-    Blue = 4,   //Sad
-    Red = 5     //Angry
+    Like = 1,  //Like
+    Heart = 2,   //Love
+    Haha = 3, //Haha
+    Wow = 4, //Wow
+    Sad = 5,   //Sad
+    Angry = 6     //Angry
 }
