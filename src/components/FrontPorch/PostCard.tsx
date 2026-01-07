@@ -10,7 +10,7 @@ import type { PostCardProps } from "@/interfaces/IProps";
 
 export default function PostCard({ post }: PostCardProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [liked] = useState(false);
+  const [liked] = useState(false); // remove this after testing we implement this in dashoard
   const [likeCount] = useState(post.reactionCount);
 
   const {
