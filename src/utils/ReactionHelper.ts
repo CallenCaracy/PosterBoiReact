@@ -21,7 +21,7 @@ export function getTopReactions(
 ): ReactionType[] {
   if (!summary) return [];
 
-  return Object.entries(summary)
+  return Object.entries(summary.reactionTypes || {})
     .filter(([key]) => !["userReactionId", "userReactionType"].includes(key))
     .map(([key, count]) => {
       const reactionType = ReactionType[key as keyof typeof ReactionType];
@@ -40,4 +40,13 @@ export const reactionStyles: Record<ReactionType, string> = {
   [ReactionType.Wow]: "text-orange-500",
   [ReactionType.Sad]: "text-blue-500",
   [ReactionType.Angry]: "text-red-500",
+};
+
+export const reactionTypeToKey: Record<ReactionType, keyof typeof ReactionType> = {
+  [ReactionType.Like]: 'Like',
+  [ReactionType.Heart]: 'Heart',
+  [ReactionType.Haha]: 'Haha',
+  [ReactionType.Wow]: 'Wow',
+  [ReactionType.Sad]: 'Sad',
+  [ReactionType.Angry]: 'Angry',
 };

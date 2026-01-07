@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { formatDistanceToNow } from 'date-fns'
 import { useInfiniteComments } from "@/hooks/UseFetchComments";
-import { getTopReactions, reactionStyles } from "@/utils/ReactionHelper";
+import { getTopReactions, reactionStyles, reactionTypeToKey } from "@/utils/ReactionHelper";
 import type { PostCardProps } from "@/interfaces/IProps";
 
 export default function PostCard({ post }: PostCardProps) {
@@ -112,7 +112,7 @@ export default function PostCard({ post }: PostCardProps) {
             size="sm"
             className={`gap-1.5 rounded-full ${liked ? 'text-destructive hover:text-destructive' : 'text-muted-foreground'}`}
           >
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1" onClick={isOpen ? handleClose : handleOpen}>
             {topReactions.length > 0 ? (
               topReactions.map((r, i) => (
                 <Heart
@@ -137,11 +137,37 @@ export default function PostCard({ post }: PostCardProps) {
 
       {isOpen && (
         <div className="border-t border-border pt-4 max-h-64 overflow-y-auto">
+          {post.reactionSummary.reactionTypes && (
+            <div className="flex items-center gap-1 mb-4 ml-3">
+              {getTopReactions(post.reactionSummary).length > 0 ? (
+                getTopReactions(post.reactionSummary).map((r, i) => (
+                  <>
+                    <Heart
+                      key={i}
+                      className={`h-4 w-4 -ml-1 ${
+                        reactionStyles[r]
+                      } ${i === 0 ? "" : "border border-background rounded-full"}`}
+                      />
+                    <span className="text-xs text-muted-foreground">
+                      {post.reactionSummary.reactionTypes?.[reactionTypeToKey[r]] ?? 0}
+                    </span>
+                  </>
+                ))
+              ) : (
+                <Heart className="h-4 w-4 text-muted-foreground" />
+              )}
+              {post.reactionSummary.userReactionName && (
+                <span className="text-xs ml-2 text-muted-foreground">
+                  You reacted with {post.reactionSummary.userReactionName}
+                </span>
+              )}
+            </div>
+          )}
+
           {comments.length === 0 && !loading && !error && (
             <p className="text-center text-muted-foreground">No comments yet.</p>
           )}
 
-          {/* Render top-level comments */}
           {comments
             .filter(c => c.parentCommentId === null)
             .map(parent => (

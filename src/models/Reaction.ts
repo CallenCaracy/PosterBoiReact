@@ -7,16 +7,17 @@ export type Reactions = {
 }
 
 export type ReactionSummary = {
-    reactionSummary?: Partial<Record<ReactionType, number>>
-    userReactionId?: string;
-    userReactionType?: string;
-}
+    reactionTypes?: Partial<Record<keyof typeof ReactionType, number>>;
+    userReactionId?: string | null;
+    userReactionName?: keyof typeof ReactionType | null;
+};
+
 
 export enum ReactionType {
-    Like = 1,       //Like
-    Heart = 2,      //Love
-    Haha = 3,       //Haha
-    Wow = 4,        //Wow
-    Sad = 5,        //Sad
-    Angry = 6       //Angry
+    Like = 1,
+    Heart = 2,
+    Haha = 3,
+    Wow = 4,
+    Sad = 5,
+    Angry = 6
 }
