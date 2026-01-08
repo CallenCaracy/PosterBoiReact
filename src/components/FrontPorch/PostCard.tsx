@@ -7,11 +7,15 @@ import { formatDistanceToNow } from 'date-fns'
 import { useInfiniteComments } from "@/hooks/UseFetchComments";
 import { getTopReactions, reactionStyles, reactionTypeToKey } from "@/utils/ReactionHelper";
 import type { PostCardProps } from "@/interfaces/IProps";
+import ImageModal from "../ui/image-modal";
 
 export default function PostCard({ post }: PostCardProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [liked] = useState(false); // remove this after testing we implement this in dashoard
+  const [liked] = useState(false); // remove this after testing we implement this in dashoard like the other comments
   const [likeCount] = useState(post.reactionCount);
+  const [activePostImage, setActivePostImage] = useState<string | null>(null);
+  const [activeCommentImage, setActiveCommentImage] = useState<string | null>(null);
+
 
   const {
     comments,
@@ -90,7 +94,7 @@ export default function PostCard({ post }: PostCardProps) {
       {/* Content */}
       <div className="flex gap-2">
         <p className="text-lg font-bold text-foreground leading-snug">{post.title}:</p>
-        <p className="text-foreground mb-1 leading-relaxed">{post.description}</p>
+        <p className="text-foreground mb-1 leading-relaxed whitespace-pre-line">{post.description}</p>
       </div>
 
       {/* Image */}
@@ -100,10 +104,18 @@ export default function PostCard({ post }: PostCardProps) {
             src={post.imgUrl}
             alt="Post"
             className="w-full object-cover max-h-96"
+            onClick={() => setActivePostImage(post.imgUrl ?? "")}
           />
         </div>
       ) : null}
 
+      <ImageModal
+        src={activePostImage ?? ""}
+        alt="Post image"
+        isOpen={!!activePostImage}
+        onClose={() => setActivePostImage(null)}
+      />
+      
       {/* Actions */}
       <div className="flex items-center justify-between pt-2 border-t border-border">
         <div className="flex gap-1">
@@ -180,14 +192,15 @@ export default function PostCard({ post }: PostCardProps) {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{parent.user.name}</p>
-                    <p className="text-sm text-muted-foreground">{parent.commentMessage}</p>
+                    <p className="text-sm font-semibold text-foreground">{parent.user.name} - {parent.user.username}</p>
+                    <p className="text-sm text-muted-foreground whitespace-pre-line">{parent.commentMessage}</p>
                     {parent.imgUrl ? (
                       <div className="-mx-4">
                         <img
                           src={parent.imgUrl}
                           alt="Post"
-                          className="w-full object-cover max-h-96"
+                          className="w-full object-cover max-h-40 rounded-2xl"
+                          onClick={() => setActiveCommentImage(parent.imgUrl ?? "")}
                         />
                       </div>
                     ) : null}
@@ -208,17 +221,24 @@ export default function PostCard({ post }: PostCardProps) {
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="text-sm font-semibold">{child.user.name}</p>
-                          <p className="text-sm text-muted-foreground">{child.commentMessage}</p>
+                          <p className="text-sm font-semibold">{child.user.name} - {child.user.username}</p>
+                          <p className="text-sm text-muted-foreground whitespace-pre-line">{child.commentMessage}</p>
                           {child.imgUrl ? (
                             <div className="-mx-4">
                               <img
                                 src={child.imgUrl}
                                 alt="Post"
                                 className="w-full object-cover max-h-40 rounded-2xl"
+                                onClick={() => setActiveCommentImage(child.imgUrl ?? "")}
                               />
                             </div>
                           ) : null}
+                          <ImageModal
+                            src={child.imgUrl ?? ""}
+                            alt="Post image"
+                            isOpen={!!activeCommentImage}
+                            onClose={() => setActiveCommentImage(null)}
+                          />
                           <p className="text-xs text-muted-foreground">
                             {formatDistanceToNow(new Date(child.createdAt), { addSuffix: true })}
                           </p>
@@ -241,6 +261,13 @@ export default function PostCard({ post }: PostCardProps) {
               </Button>
             </div>
           )}
+
+          <ImageModal
+            src={activeCommentImage ?? ""}
+            alt="Comment image"
+            isOpen={!!activeCommentImage}
+            onClose={() => setActiveCommentImage(null)}
+          />
         </div>
       )}
     </Card>

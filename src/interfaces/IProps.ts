@@ -12,3 +12,10 @@ export interface PostsFeedProps {
 export interface PostCardProps {
   post: Post;
 }
+
+export interface ImageModalProps {
+  src: string;
+  alt?: string;
+  isOpen: boolean;
+  onClose: () => void;
+}
