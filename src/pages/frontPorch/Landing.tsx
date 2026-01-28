@@ -1,7 +1,7 @@
-import Navbar from "@/layouts/Navbar";
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import Footer from "@/layouts/Footer";
+import Navbar from "@/components/frontPorch/Navbar";
+import Hero from "@/components/frontPorch/Hero";
+import Features from "@/components/frontPorch/Features";
+import Footer from "@/components/frontPorch/Footer";
 
 export default function Landing() {
   return (

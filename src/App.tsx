@@ -1,8 +1,10 @@
 import { Routes, Route } from 'react-router-dom'
-import Landing from './pages/FrontPorch/Landing'
-import Login from './pages/FrontPorch/Login'
-import Signup from './pages/FrontPorch/Signup'
-import Dashboard from './pages/LivingRoom/Dashboard'
+import Landing from './pages/frontPorch/Landing'
+import Login from './pages/frontPorch/Login'
+import Signup from './pages/frontPorch/Signup'
+import Dashboard from './pages/livingRoom/Dashboard'
+import Preview from '@/pages/frontPorch/Preview'
+import NotFound from './pages/general/NotFound'
 
 export default function App() {
   return (
@@ -10,7 +12,9 @@ export default function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="preview" element={<Preview />} />
       <Route path="/dashboard" element={<Dashboard/>}/>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

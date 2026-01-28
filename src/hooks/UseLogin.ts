@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { LoginSchema } from "@/schemas/LoginSchema";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/UseAuth";
 import { getApiUrl } from "@/utils/env";
 
 export function useLogin() {
@@ -28,7 +28,7 @@ export function useLogin() {
       login(accessToken);
 
       return { success: true };
-    } catch (err) {
+    } catch {
       return { success: false, error: "Network error" };
     } finally {
       setLoading(false);
