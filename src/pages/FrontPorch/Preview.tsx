@@ -1,4 +1,4 @@
-import PostsFeed from "@/components/FrontPorch/PostFeed";
+import PostsFeed from "@/components/frontPorch/PostFeed";
 import Navbar from "@/components/frontPorch/Navbar";
 import { useRef, useEffect } from "react";
 import { useInfinitePosts } from "@/hooks/UseFetchPosts";
