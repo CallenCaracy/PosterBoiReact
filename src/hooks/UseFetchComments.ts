@@ -51,7 +51,7 @@ export function useInfiniteComments({ postId, limit = 10 }: UseInfiniteCommentsO
             setComments(prev => [...prev, ...data]);
             setAfter(newCursor);
             setRetryCount(0);
-        } catch (err) {
+        } catch {
             setRetryCount(c => c + 1);
             await new Promise(r => setTimeout(r, 500 * (retryCount + 1)));
             if (retryCount + 1 >= MAX_RETRIES) {

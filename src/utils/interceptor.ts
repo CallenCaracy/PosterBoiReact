@@ -4,7 +4,7 @@ import jwtUtil from "./jwtUtil";
 let isRefreshing = false;
 let refreshQueue: ((token: string | null) => void)[] = [];
 
-export const setupInterceptors = (auth: { token: any; refresh: () => any; logout: () => void; }) => {
+export const setupInterceptors = (auth: { token: string | null; refresh: () => Promise<string | null>; logout: () => void; }) => {
   if (api.interceptors.request.use.length > 0) return;
 
   api.interceptors.request.use(
@@ -23,7 +23,7 @@ export const setupInterceptors = (auth: { token: any; refresh: () => any; logout
 
           token = newToken;
         } else {
-          const newToken = await new Promise((resolve) =>
+          const newToken = await new Promise<string | null>((resolve) =>
             refreshQueue.push(resolve)
           );
           token = newToken;

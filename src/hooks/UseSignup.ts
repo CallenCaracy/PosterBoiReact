@@ -24,7 +24,7 @@ export function useSignup() {
       }
 
       return { success: true };
-    } catch (err) {
+    } catch {
       return { success: false, error: "Network error" };
     } finally {
       setLoading(false);

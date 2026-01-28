@@ -5,7 +5,7 @@ export default function ImageModal({ src, alt, isOpen, onClose } : ImageModalPro
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleEsc = (e: any) => {
+    const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 

@@ -1,4 +1,4 @@
-import PostsFeed from "@/components/frontPorch/PostFeed";
+import PostsFeed from "@/components/FrontPorch/PostFeed";
 import Navbar from "@/components/frontPorch/Navbar";
 import { useRef, useEffect } from "react";
 import { useInfinitePosts } from "@/hooks/UseFetchPosts";
@@ -11,6 +11,8 @@ export default function Preview() {
     useEffect(() => {
     if (!loadMoreRef.current || error) return;
 
+    const currentRef = loadMoreRef.current;
+
     const observer = new IntersectionObserver(
         ([entry]) => {
         if (entry.isIntersecting && hasMore && !loading) {
@@ -22,8 +24,11 @@ export default function Preview() {
 
     observer.observe(loadMoreRef.current);
 
-    return () => observer.disconnect();
-    }, [hasMore, loading]);
+    return () => {
+        observer.unobserve(currentRef);
+        observer.disconnect();
+    };
+    }, [hasMore, loading, error, loadMore]);
 
     return (
         <div className="min-h-screen bg-background">

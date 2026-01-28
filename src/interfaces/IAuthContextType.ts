@@ -1,3 +1,4 @@
+import { createContext } from "react";
 import type IDecodedToken from "./IDecodedToken";
 
 export default interface IAuthContextType {
@@ -7,3 +8,5 @@ export default interface IAuthContextType {
   logout: () => void;
   refresh: () => Promise<string | null>;
 }
+
+export const AuthContext = createContext<IAuthContextType | null>(null);
